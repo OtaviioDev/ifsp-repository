@@ -1,19 +1,16 @@
 # IFSP Repository
 
-Sistema web desenvolvido para centralizar projetos acadêmicos dos estudantes do IFSP.
+Projeto desenvolvido durante o Hackathon do IFSP Jacareí.
 
 ## Objetivo
 
-Criar uma plataforma onde alunos possam compartilhar:
+Criar uma plataforma para centralizar projetos acadêmicos dos estudantes do IFSP, permitindo o compartilhamento de:
 
-- Projetos
 - TCCs
-- Artigos
+- Artigos científicos
+- Projetos
 - Trabalhos acadêmicos
-- PDFs
-- Pesquisas
-
-Dessa forma, o conhecimento produzido pelos estudantes permanece acessível para futuras turmas.
+- Outros materiais produzidos pelos alunos
 
 ## Tecnologias
 
@@ -21,9 +18,14 @@ Dessa forma, o conhecimento produzido pelos estudantes permanece acessível para
 - CSS
 - JavaScript
 
-## Funcionalidades
+## Desenvolvimento
 
-- Login
-- Upload de arquivos
+Este projeto foi desenvolvido em equipe durante o Hackathon do IFSP Jacareí.
+
+Durante o desenvolvimento foram utilizadas ferramentas de Inteligência Artificial, incluindo o DeepSeek, para auxiliar na geração de código, pesquisa e aceleração do desenvolvimento. Todo o projeto foi revisado, adaptado e integrado pela equipe.
+
+## Status
+
+Protótipo funcional desenvolvido para o Hackathon.
 - Busca por projetos
 - Organização por curso
