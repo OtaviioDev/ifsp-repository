@@ -5,6 +5,23 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 // Inicializa a conexão
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+console.log("Script carregado!");
+
+console.log("Cliente:", supabaseClient);
+
+async function testeBanco() {
+
+    const { data, error } = await supabaseClient
+        .from("projects")
+        .select("*");
+
+    console.log("Dados:", data);
+    console.log("Erro:", error);
+
+}
+
+testeBanco();
+
 // Função para buscar os dados
 async function buscarTodosOsProjetos() {
     const { data, error } = await supabaseClient
