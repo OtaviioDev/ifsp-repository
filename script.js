@@ -1,3 +1,27 @@
+// Configuração das credenciais (Pegue no painel do Supabase > Settings > API)
+const SUPABASE_URL = "https://tmeqrpambfprtgbavyok.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtZXFycGFtYmZwcnRnYmF2eW9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyOTE2ODAsImV4cCI6MjA5OTg2NzY4MH0.ZiDSxPJRSszwZf3-1xgnzkDCDP3IgRNp-eiILOsufrI";
+
+// Inicializa a conexão
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Função para buscar os dados
+async function buscarTodosOsProjetos() {
+    const { data, error } = await supabase
+        .from('projects')
+        .select('*');
+
+    if (error) {
+        console.error("Erro:", error.message);
+        return;
+    }
+
+    console.log("Projetos do IFSP:", data);
+}
+
+// Executa a função
+buscarTodosOsProjetos();
+
 // Sistema de Gerenciamento de PDFs
 class PDFManager {
     constructor() {
