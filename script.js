@@ -3,11 +3,11 @@ const SUPABASE_URL = "https://tmeqrpambfprtgbavyok.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtZXFycGFtYmZwcnRnYmF2eW9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyOTE2ODAsImV4cCI6MjA5OTg2NzY4MH0.ZiDSxPJRSszwZf3-1xgnzkDCDP3IgRNp-eiILOsufrI";
 
 // Inicializa a conexão
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Função para buscar os dados
 async function buscarTodosOsProjetos() {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('projects')
         .select('*');
 
