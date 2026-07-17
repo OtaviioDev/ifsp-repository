@@ -119,7 +119,7 @@
                 <div class="filters-row">
                     <div class="filter-group search-group">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Buscar por título, autor, orientador ou palavra-chave...">
+                        <input type="text" id="searchInput" aria-label="Buscar documentos acadêmicos" placeholder="Buscar por título, autor, orientador ou palavra-chave...">
                     </div>
 
                     <div class="filter-group">
@@ -238,14 +238,12 @@
     <div id="notification" class="notification"></div>
     
     <script src="auth.js"></script>
-    <script src="script.js"></script>
     
    <!-- Link Oficial e Estável do Supabase via Cloudflare CDN -->
-    <script src="https://cloudflare.com"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <!-- O seu arquivo de script (deve vir depois da biblioteca) -->
-<script src="js/script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
