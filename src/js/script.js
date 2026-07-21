@@ -30,6 +30,8 @@ async function buscarTodosOsProjetos() {
     }
 
     console.log("Projetos do IFSP:", data);
+
+    return data;
 }
 
 // Executa a função
@@ -257,6 +259,7 @@ function initializeUpload() {
 
 // Manipular upload
 async function handleUpload() {
+    console.log("handleUpload foi chamada");
     const fileInput = document.getElementById('pdfFile');
     const file = fileInput ? fileInput.files[0] : null;
     
@@ -279,37 +282,53 @@ async function handleUpload() {
         if (loader) loader.style.display = 'inline-block';
     }
     
-    const reader = new FileReader();
-    
-    reader.onload = (e) => {
-        const pdfData = {
-            tipoDocumento: document.getElementById('tipoDocumento').value,
-            curso: document.getElementById('curso').value,
-            titulo: document.getElementById('titulo').value,
-            autores: document.getElementById('autores').value,
-            orientador: document.getElementById('orientador').value,
-            ano: parseInt(document.getElementById('ano').value),
-            palavrasChave: document.getElementById('palavrasChave').value,
-            fileName: file.name,
-            fileSize: file.size,
-            fileData: e.target.result
-        };
-        
-        pdfManager.addPDF(pdfData);
-        
-        const uploadForm = document.getElementById('uploadForm');
-        if (uploadForm) uploadForm.reset();
-        const fileNameDisplay = document.getElementById('fileName');
-        if (fileNameDisplay) fileNameDisplay.textContent = 'Nenhum arquivo selecionado';
-        
-        updateYearFilter();
-        renderPDFs();
-        updateStatistics();
-        
-        showNotification('Documento submetido com sucesso!', 'success');
-    };
-    
-    reader.readAsDataURL(file);
+    try {
+
+    const fileName = `${Date.now()}-${file.name}`;
+
+    // Upload para o Storage
+    const { error: uploadError } = await supabaseClient.storage
+        .from("pdfs")
+        .upload(fileName, file);
+
+    if (uploadError) throw uploadError;
+
+    // URL pública
+    const { data: publicData } = supabaseClient.storage
+        .from("pdfs")
+        .getPublicUrl(fileName);
+
+    // Salvar no banco
+    const { error: insertError } = await supabaseClient
+        .from("projects")
+        .insert([{
+            title: document.getElementById("titulo").value,
+            author: document.getElementById("autores").value,
+            course: document.getElementById("curso").value,
+            summary: "",
+            pdf_url: publicData.publicUrl,
+            tipo_documento: document.getElementById("tipoDocumento").value,
+            orientador: document.getElementById("orientador").value,
+            ano: parseInt(document.getElementById("ano").value),
+            palavras_chave: document.getElementById("palavrasChave").value,
+            uploader: "Anônimo"
+        }]);
+
+    if (insertError) throw insertError;
+
+    showNotification("Documento enviado com sucesso!", "success");
+
+    await buscarTodosOsProjetos();
+
+    document.getElementById("uploadForm").reset();
+
+} catch (err) {
+
+    console.error(err);
+
+    showNotification(err.message, "error");
+
+}
     
     if (submitBtn) {
         submitBtn.disabled = false;
